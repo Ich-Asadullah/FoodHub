@@ -3,32 +3,32 @@ package Models;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Customer extends User {
-    private String address;
+public class Admin extends User {
+    private String designation;
 
-    public Customer(int id, String name, String phoneNumber, String address, String userName, String password) {
+    public Admin(int id, String name, String phoneNumber, String designation, String userName, String password) {
         super(id, name, phoneNumber, userName, password);
-        this.address = address;
+        this.designation = designation;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     @Override
     public String toString() {
         return "ID: " + getId() + "\nName: " + getName() + "\nPhone Number: " + getPhoneNumber()
-                + "\nAddress: " + address;
+                + "\nDesignation: " + designation;
     }
 
-    // Function to add Customer
-    public static void addCustomer(Customer e) {
+    // Function to add a new Admin
+    public static void addAdmin(Admin e) {
         try {
-            File f = new File("customer.ser");
+            File f = new File("admin.ser");
             ObjectOutputStream oos;
             if (f.exists()) {
                 oos = new MyObjectOutputStream(new FileOutputStream(f, true));
@@ -42,13 +42,13 @@ public class Customer extends User {
         }
     }
 
-    // Function to print all customers
-    public static void getCustomer() {
+    // Function to Print All Admin details
+    public static void getAdmin() {
         ObjectInputStream ois;
         try {
-            ois = new ObjectInputStream(new FileInputStream("customer.ser"));
+            ois = new ObjectInputStream(new FileInputStream("admin.ser"));
             while (true) {
-                Customer e = (Customer) ois.readObject();
+                Admin e = (Admin) ois.readObject();
                 System.out.println(e);
             }
         } catch (ClassNotFoundException e1) {
@@ -60,13 +60,13 @@ public class Customer extends User {
         }
     }
 
-    // Function to get all customers
-    public static ArrayList<Customer> readAllCustomers() {
-        ArrayList<Customer> list = new ArrayList<Customer>();
+    // Function to Get All Admin details
+    public static ArrayList<Admin> readAllAdmins() {
+        ArrayList<Admin> list = new ArrayList<Admin>();
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("customer.ser"));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("admin.ser"));
             while (true) {
-                Customer a = (Customer) ois.readObject();
+                Admin a = (Admin) ois.readObject();
                 list.add(a);
             }
         } catch (ClassNotFoundException e1) {
@@ -79,16 +79,16 @@ public class Customer extends User {
         return list;
     }
 
-    // Function to remove a customer
-    public void deleteCustomer(String name) {
-        ArrayList<Customer> list = readAllCustomers();
+    // Function to delete an Admin
+    public void deleteAdmin(String userName) {
+        ArrayList<Admin> list = readAllAdmins();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getName().equals(name)) {
+            if (list.get(i).getUserName().equals(userName)) {
                 list.remove(i);
                 break;
             }
         }
-        File f = new File("customer.ser");
+        File f = new File("admin.ser");
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
             for (int i = 0; i < list.size(); i++) {
@@ -101,37 +101,37 @@ public class Customer extends User {
         }
     }
 
-    // Function to return Last ID
+    // Return last ID
     public static int return_last_id() {
-        ArrayList<Customer> list = readAllCustomers();
+        ArrayList<Admin> list = readAllAdmins();
 
-        Customer a = list.get(list.size() - 1);
+        Admin a = list.get(list.size() - 1);
         return a.getId();
     }
 
-    // Signup Function for Customer
-    public static Customer signUP(String name, String phoneNumber, String address, String userName,
+    // Signup Function for Admin
+    public static Admin signUP(String name, String phoneNumber, String designation, String userName,
             String password) {
-        ArrayList<Customer> list = readAllCustomers();
+        ArrayList<Admin> list = readAllAdmins();
 
         if (!(uniqueUserName(userName, list))) {
             System.out.println("Username Must be Unique");
             return null;
         }
-        // Getting last Customer id to allocate a new one
+        // Getting last Admin id to allocate a new one
         int id = return_last_id();
-        Customer customer = new Customer(id + 1, name, phoneNumber, address, userName, password);
-        addCustomer(customer);
-        return customer;
+        Admin admin = new Admin(id + 1, name, phoneNumber, designation, userName, password);
+        addAdmin(admin);
+        return admin;
     }
 
-    // Function to signIn as a Customer
-    public static Customer signIn(String userName, String password) {
-        ArrayList<Customer> list = readAllCustomers();
+    // Function to signIn as an Admin
+    public static Admin signIn(String userName, String password) {
+        ArrayList<Admin> list = readAllAdmins();
 
-        for (Customer customer : list) {
-            if (customer.validate(userName, password)) {
-                return customer;
+        for (Admin admin : list) {
+            if (admin.getUserName() == userName && admin.getPassword() == password) {
+                return admin;
             }
         }
         return null;
