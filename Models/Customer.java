@@ -25,7 +25,7 @@ public class Customer extends User {
     }
 
     // Function to update the cart
-    public void updateCart(MenuItem item, int quantity) {
+    public void updateCart(Item item, int quantity) {
         this.getCart().updateCart(item, quantity);
     }
 
