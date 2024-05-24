@@ -56,7 +56,6 @@ public abstract class User implements Serializable {
 
     public abstract String toString();
 
-    // Validated the login of a user
     public boolean validate(String userName, String password) {
         if (this.userName == userName && this.password == password) {
             return true;
@@ -64,7 +63,6 @@ public abstract class User implements Serializable {
         return false;
     }
 
-    // Checks the uniqueness of a username before signup
     public static boolean uniqueUserName(String userName, ArrayList<? extends User> list) {
         for (User i : list) {
             if (i.getUserName().equals(userName)) {
