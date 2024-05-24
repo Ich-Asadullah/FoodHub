@@ -3,27 +3,30 @@ package Models;
 import java.util.ArrayList;
 
 public class Cart {
-    private ArrayList<MenuItem> items;
+    private ArrayList<Item> items;
     private double total;
 
-    public Cart(ArrayList<MenuItem> items) {
+    public Cart() {
+    }
+
+    public Cart(ArrayList<Item> items) {
         this.items = items;
         this.total = calculateTotal();
     }
 
-    public ArrayList<MenuItem> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
     public double calculateTotal() {
         total = 0;
-        for (MenuItem item : items) {
+        for (Item item : items) {
             total += item.getPrice();
         }
         return total;
     }
 
-    public void updateCart(MenuItem item, int quantity) {
+    public void updateCart(Item item, int quantity) {
         for (int i = 0; i < quantity; i++) {
             items.add(item);
         }
