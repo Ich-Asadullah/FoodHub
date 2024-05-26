@@ -57,7 +57,7 @@ public abstract class User implements Serializable {
     public abstract String toString();
 
     public boolean validate(String userName, String password) {
-        if (this.userName == userName && this.password == password) {
+        if (this.userName.equals(userName) && this.password.equals(password)) {
             return true;
         }
         return false;
