@@ -130,7 +130,7 @@ public class Admin extends User {
         ArrayList<Admin> list = readAllAdmins();
 
         for (Admin admin : list) {
-            if (admin.getUserName() == userName && admin.getPassword() == password) {
+            if (admin.validate(userName, password)) {
                 return admin;
             }
         }
