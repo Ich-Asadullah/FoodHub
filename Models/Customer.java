@@ -32,7 +32,7 @@ public class Customer extends User {
     @Override
     public String toString() {
         return "ID: " + getId() + "\nName: " + getName() + "\nPhone Number: " + getPhoneNumber()
-                + "\nAddress: " + address;
+                + "\nAddress: " + address + "\nUsername: " + getUserName() + "\nPassword: " + getPassword();
     }
 
     // Function to add Customer
@@ -114,7 +114,9 @@ public class Customer extends User {
     // Function to return Last ID
     public static int return_last_id() {
         ArrayList<Customer> list = readAllCustomers();
-
+        if (list.size() == 0) {
+            return 0;
+        }
         Customer a = list.get(list.size() - 1);
         return a.getId();
     }
@@ -141,8 +143,12 @@ public class Customer extends User {
 
         for (Customer customer : list) {
             if (customer.validate(userName, password)) {
+                System.out.println("Found");
                 return customer;
             }
+            // System.out.println(userName + " --> " + password);
+            // System.out.println(customer.getUserName() + " --> " +
+            // customer.getPassword());
         }
         return null;
     }
