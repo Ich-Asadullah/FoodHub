@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Customer extends User {
     private String address;
-    private Cart cart;
 
     public Customer(int id, String name, String phoneNumber, String address, String userName, String password) {
         super(id, name, phoneNumber, userName, password);
@@ -18,15 +17,6 @@ public class Customer extends User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    // Function to update the cart
-    public void updateCart(Item item, int quantity) {
-        this.getCart().updateCart(item, quantity);
     }
 
     @Override
