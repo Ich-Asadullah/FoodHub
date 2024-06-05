@@ -5,15 +5,11 @@ import java.util.ArrayList;
 
 public class Item implements Serializable {
     private String name;
-    private String description;
     private double price;
-    private int quantity;
 
-    public Item(String name, String description, double price, int quantity) {
+    public Item(String name, double price) {
         this.name = name;
-        this.description = description;
         this.price = price;
-        this.quantity = quantity;
     }
 
     public String getName() {
@@ -24,41 +20,21 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public void purchased(int items) {
-        this.quantity -= items;
-    }
-
-    public void increaseStock(int quantity) {
-        this.quantity += quantity;
-    }
-
     // toString method for menu items
     public String toString() {
-        return "Menu Item : " + name + "\nPrice : " + price + "\nDescription : " + description;
+        return "Menu Item : " + name + "\nPrice : " + price;
     }
 
     // Add menu item to the file
-    public static void addMenuItem(Item e, int quantity) {
+    public static void addMenuItem(Item e) {
         try {
             File f = new File("MenuItem.ser");
             ObjectOutputStream oos;
@@ -134,19 +110,10 @@ public class Item implements Serializable {
     }
 
     // Take menu items parameters, make an object of them and add it to file
-    public static boolean addMenuItem(String name, String description, double price, int quantity) {
-        boolean available = false;
+    public static boolean addMenuItem(String name, double price) {
         ArrayList<Item> list = readAllMenuItems();
-        for (Item i : list) {
-            if (i.getName() == name && i.getDescription() == description) {
-                i.increaseStock(quantity);
-                available = true;
-            }
-        }
-        if (!available) {
-            Item a = new Item(name, description, price, quantity);
-            list.add(a);
-        }
+        Item a = new Item(name, price);
+        list.add(a);
 
         try {
             File f = new File("MenuItem.ser");
