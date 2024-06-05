@@ -1,4 +1,4 @@
-# Leo's Cafe Management System
+# Cafe Management System
 
 ## Overview
 Welcome to the Leo's Cafe Management System repository! This project is a comprehensive application designed to manage a cafe efficiently, providing a user-friendly interface for both customers and administrators. The system allows customers to view the menu, log in, and add items to their cart, while administrators can log in to manage the menu.
