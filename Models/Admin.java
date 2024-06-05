@@ -75,6 +75,7 @@ public class Admin extends User {
             return list;
         } catch (IOException e3) {
             System.out.println("File not found in reader. ");
+            return list;
         }
         return list;
     }
@@ -103,10 +104,19 @@ public class Admin extends User {
 
     // Return last ID
     public static int return_last_id() {
-        ArrayList<Admin> list = readAllAdmins();
+        try {
+            ArrayList<Admin> list = readAllAdmins();
 
-        Admin a = list.get(list.size() - 1);
-        return a.getId();
+            if (list.size() == 0) {
+                return 0;
+            }
+
+            Admin a = list.get(list.size() - 1);
+            return a.getId();
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     // Signup Function for Admin
